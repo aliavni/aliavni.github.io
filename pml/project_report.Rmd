@@ -1,0 +1,162 @@
+---
+title: "Project Report"
+author: "Ali Avni Cirik"
+date: "July 25, 2015"
+output: html_document
+---
+
+***
+Load required libraries
+```{r message=FALSE}
+library(caret)
+library(rpart)
+```
+
+Set seed for reproducibility
+```{r}
+set.seed(3421)
+```
+***
+
+## 1. Data Exploration and Cleanup
+
+This section loads the two raw data files and applies data transformations to them.
+
+### 1.1. Load raw data
+Load raw data into `raw.train` and `raw.test` data frames. `na.strings=c("","#DIV/0!", "NA")` parameter treats `"","#DIV/0!" and "NA"` values in the raw data as missing values.
+```{r}
+raw.train <- read.csv("data/pml-training.csv", stringsAsFactors=F, na.strings=c("","#DIV/0!", "NA"))
+raw.test  <- read.csv("data/pml-testing.csv" , stringsAsFactors=F, na.strings=c("","#DIV/0!", "NA"))
+```
+
+### 1.2. Set variable types
+Set correct variable types in `raw.train` and `raw.test` data frames.
+```{r}
+raw.train$classe     <- as.factor(raw.train$classe)
+raw.train$new_window <- raw.train$new_window=="yes"
+raw.train$user_name  <- as.factor(raw.train$user_name)
+
+raw.test$new_window  <- raw.test$new_window=="yes"
+raw.test$user_name   <- as.factor(raw.test$user_name)
+```
+
+### 1.3. Remove zero variance variables
+Remove zero variance variables from `raw.train` and `raw.test` data frames.
+```{r}
+nzv.metrics   <- nearZeroVar(raw.train, saveMetrics = T)
+nzv.var.names <- names(raw.train)[nzv.metrics$nzv]
+
+# Remove nzv variables from both
+raw.train <- raw.train[, !names(raw.train) %in% nzv.var.names]
+raw.test  <- raw.test[, !names(raw.test) %in% nzv.var.names]
+```
+
+### 1.4. Remove additional variables
+Remove the variables which will not be used in the model.
+
+```{r}
+remove.vars <- c("X", "user_name", "raw_timestamp_part_1", "raw_timestamp_part_2", "cvtd_timestamp")
+
+raw.train <- raw.train[, !names(raw.train) %in% remove.vars]
+raw.test <- raw.test[, !names(raw.test) %in% remove.vars]
+```
+
+### 1.4. Apply knnImpute to deal with missing data
+Apply knnImpute to deal with missing data and add `classe` variable to the new `raw.train.imputed` data frame. 
+```{r}
+preObj <- preProcess(raw.train[, -ncol(raw.train)], method="knnImpute")
+
+# use preObj to create raw.train.imputed
+raw.train.imputed <- predict(preObj, raw.train[, -ncol(raw.train)])
+# use the same preObj to create  raw.test.imputed
+raw.test.imputed  <- predict(preObj, raw.test[, -ncol(raw.train)])
+
+# put classe variable back to the imputed raw data
+raw.train.imputed$classe <- raw.train$classe
+```
+
+### 1.5. Split `raw.train.imputed` data frame for model building and testing
+```{r}
+inTrain <- createDataPartition(y = raw.train.imputed$classe, p = 0.7, list = F)
+train <- raw.train.imputed[inTrain,]
+test  <- raw.train.imputed[-inTrain,]
+```
+
+## 2. Model Building
+
+### 2.1. Classification and regression tree model
+Build final model:
+
++ using classification and regression trees
++ with 10 fold cross validation, and
++ tuneLength parameter set to 60
+
+```{r}
+finalTreeModel <- train(classe ~ ., method="rpart", data=train, trControl=trainControl(method="cv",number=10), tuneLength=60)
+finalTreeModel$results[c(1:10),]
+```
+
+### 2.3. In sample error
+
+```{r}
+finalTreeModel.train.predictions <- predict(finalTreeModel, newdata=train[, -ncol(train)])
+trainCM <- confusionMatrix(train$classe, finalTreeModel.train.predictions)
+```
+***
+
+In sample error is **`r 1 - trainCM$overall["Accuracy"][[1]]`** and calculated with the following formula:
+```{r}
+1 - trainCM$overall["Accuracy"][[1]]
+```
+***
+
+Take a look at the confusion matrix:
+```{r}
+trainCM$table
+```
+***
+
+Take a look at overall statistics:
+```{r}
+trainCM$overall
+```
+***
+
+Take a look at the statistics by class:
+```{r}
+trainCM$byClass
+```
+
+### 2.4. Out of sample error
+
+```{r}
+finalTreeModel.test.predictions <- predict(finalTreeModel, newdata=test[, -ncol(test)])
+testCM <- confusionMatrix(test$classe, finalTreeModel.test.predictions)
+
+```
+***
+
+Out of sample error is **`r 1 - testCM$overall["Accuracy"][[1]]`** and calculated with the following formula:
+```{r}
+1 - testCM$overall["Accuracy"][[1]]
+```
+This uses the 10 fold cross validation set while building `finalTreeModel`. As expected, out of sample error is higher than the in sample error.
+
+***
+
+Take a look at the confusion matrix:
+```{r}
+testCM$table
+```
+***
+
+Take a look at overall statistics:
+```{r}
+testCM$overall
+```
+
+Take a look at the statistics by class:
+```{r}
+testCM$byClass
+```
+***
