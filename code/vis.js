@@ -306,7 +306,6 @@ d3.csv("data/vis.csv", type, function(error, data) {
       })
       .entries(boroughSummary);
 
-    console.log(boroughRoll);
 
     var bronx = boroughRoll.filter(function(d) { return d.key === 'Bronx'; }),
         brooklyn = boroughRoll.filter(function(d) { return d.key === 'Brooklyn'; }),
@@ -319,12 +318,6 @@ d3.csv("data/vis.csv", type, function(error, data) {
       black: "did not change",
       green: "increased"
     };
-
-    console.log("bronx", buttonXref[b], bronx[0].values);
-    console.log("brooklyn", buttonXref[b], brooklyn[0].values);
-    console.log("manhattan", buttonXref[b], manhattan[0].values);
-    console.log("queens", buttonXref[b], queens[0].values);
-    console.log("staten", buttonXref[b], staten[0].values);
 
     var changingText = bronx[0].values + " Bronx, " +
       manhattan[0].values + " Manhattan, " +
