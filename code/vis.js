@@ -16,15 +16,6 @@ d3.select("#map4").call(map4);
 var map5 = makeMap($("#map5").width(), 'Staten Island');
 d3.select("#map5").call(map5);
 
-
-
-
-// $( document ).ready(function() {
-//   console.log("clicked");
-//   $( ".chart-control .red" ).click();
-// });
-
-
 opacity = 0.75;
 opacityLow = 0.2;
 highlightColor = 'orange';
@@ -119,7 +110,6 @@ function makeMap(w, borough) { // http://bl.ocks.org/phil-pedruco/6646844
 function makeChart(w) {
 
   var margin = {top: 25, right: 35, bottom: 40, left: 0};
-  // var margin = {top: 40, right: 40, bottom: 40, left: 20};
 
   var width = w / 5 - margin.left - margin.right,
       height = 600 - margin.top - margin.bottom,
@@ -186,12 +176,6 @@ function makeChart(w) {
             d3.select(this).classed("black", true);
             return "lightgray";
           });
-          // .on("mouseover", function(d) {
-          //   d3.select(this).style("opacity", "1");
-          // })
-          // .on("mouseout", function(d) {
-          //   d3.select(this).transition().style("opacity", opacityLow);
-          // });
 
       // Add borough names.
       svg.append("text")
@@ -269,7 +253,6 @@ function type(d) {
 }
 
 
-
 d3.csv("data/vis.csv", type, function(error, data) {
   window.boroughSummary = d3.nest()
     .key(function(d) { return d.boro; })
@@ -316,7 +299,6 @@ d3.csv("data/vis.csv", type, function(error, data) {
             .style("opacity", opacity)
             .style("stroke", b);
 
-
     var boroughRoll = d3.nest()
       .key(function(d) { return d.key; })
       .rollup(function(v) {
@@ -331,7 +313,6 @@ d3.csv("data/vis.csv", type, function(error, data) {
         manhattan = boroughRoll.filter(function(d) { return d.key === 'Manhattan'; }),
         queens = boroughRoll.filter(function(d) { return d.key === 'Queens'; }),
         staten = boroughRoll.filter(function(d) { return d.key === 'Staten Island'; });
-
 
     var buttonXref = {
       red: "decreased",
@@ -351,23 +332,12 @@ d3.csv("data/vis.csv", type, function(error, data) {
       queens[0].values + " Queens and " +
       staten[0].values + " Staten Island high schools had " +
       (b === "red" ? "higher" : b === "green" ? "lower" : "same") +
-      " graduation rates " + (b === "black" ? "between 2012 and 2013." : "in 2012 compared to 2013.")
-
+      " graduation rates " + (b === "black" ? "between 2012 and 2013." : "in 2012 compared to 2013.");
 
     var ctContainer = d3.select(".changing");
 
-
     ctContainer
-      .text(changingText)
-    // var textBronx = d3.select("span.text-bronx");
-
-    // textBronx
-    //   .text(function(d) { return buttonXref[b] + " " + bronx[0].values; });
-
-    // textBronx
-    //   .transition()
-    //   .duration(duration)
-    //   .style("color", "inherit");
+      .text(changingText);
 
     });
 
