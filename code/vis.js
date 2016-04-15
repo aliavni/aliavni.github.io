@@ -17,7 +17,7 @@ var map5 = makeMap($("#map5").width(), 'Staten Island');
 d3.select("#map5").call(map5);
 
 opacity = 0.75;
-opacityLow = 0.2;
+opacityLow = 0;
 highlightColor = 'orange';
 buttons = ["red", "black", "green"];
 duration = 300;
