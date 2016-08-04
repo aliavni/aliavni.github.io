@@ -7,10 +7,10 @@ $(window).resize(function(){
     map.width($("#top").width())
 });
 
-function makeMap(width) {
+function makeMap(w) {
 
   var opacity = 0.5,
-      width = width || 1200,
+      width = w || 1200,
       height = width * 0.625,
       scalemap = width * 1.33375,
       pathMapData = "/data/map/states_np.json",
