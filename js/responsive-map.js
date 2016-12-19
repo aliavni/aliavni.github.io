@@ -4,13 +4,13 @@ var map = makeMap($("#top").width());
 d3.select("#top").call(map);
 
 $(window).resize(function(){
-    map.width($("#top").width())
+    map.width($("#top").width());
 });
 
-function makeMap(width) {
+function makeMap(w) {
 
   var opacity = 0.5,
-      width = width || 1200,
+      width = w || 1200,
       height = width * 0.625,
       scalemap = width * 1.33375,
       pathMapData = "/data/map/states_np.json",
@@ -54,7 +54,7 @@ function makeMap(width) {
           .on("mouseout", function(d) {
             d3.select(this).transition().duration(duration).style("opacity", opacity);
           })
-          .attr("id", function(d) { return d.properties.state });
+          .attr("id", function(d) { return d.properties.state; });
 
         g.append("path")
             .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
@@ -68,7 +68,7 @@ function makeMap(width) {
 
         projection
           .scale(scalemap)
-          .translate([width / 2, height / 2])
+          .translate([width / 2, height / 2]);
 
         d3.select("#state-borders")
           .style("stroke-width", "0px")
@@ -80,7 +80,7 @@ function makeMap(width) {
         d3.select("#states").selectAll("path")
           .transition()
           .duration(duration)
-          .attr("d", path)
+          .attr("d", path);
 
         svg
           .transition()
@@ -88,14 +88,14 @@ function makeMap(width) {
           .attr({
             "width": width,
             "height": height
-          })
+          });
 
         svg.select("#mbackground")
           .attr({
             "width": width,
             "height": height
-          })
-      }
+          });
+      };
     });
 
   }
