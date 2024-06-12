@@ -1,0 +1,228 @@
+---
+title: "High School Graduation Rate"
+date: 2016-04-08 04:28:45 -0400
+toc: false
+
+layout: single
+categories: d3
+tags: d3 visualization
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+          crossorigin="anonymous">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PQ9TKB4C6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5PQ9TKB4C6');
+    </script>
+
+    <style>
+
+      body {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      #all-boroughs {
+        stroke: white;
+        stroke-width: 1px;
+        fill: lightgray;
+      }
+
+      p {
+        text-align: justify;
+      }
+
+      .chart-container {
+        padding: 10px;
+      }
+
+      .school-line {
+        stroke-width: 1;
+        stroke: gray;
+      }
+
+      .axis path {
+        display: none;
+      }
+
+      .x.axis path {
+        stroke-width: 1;
+      }
+
+
+      .axis text {
+        font-size: 10px;
+      }
+
+      .axis line {
+        shape-rendering: crispEdges;
+        stroke: #000;
+      }
+
+      .axis .minor line {
+        stroke: #777;
+        stroke-dasharray: 2,2;
+      }
+
+      .y.axis {
+        visibility: hidden;
+      }
+
+      .y g line {
+        visibility: visible;
+        stroke: lightgray;
+        stroke-dasharray: 2px 3px;
+        shape-rendering: crispEdges;
+      }
+
+      .x g line {
+        visibility: hidden;
+      }
+
+      .line-svg-base {
+        stroke: black;
+        stroke-width: 2;
+        shape-rendering: crispEdges;
+      }
+
+      .row-centered {
+          text-align:center;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      h2 {
+        margin-top: 0px;
+      }
+
+      .larger {
+        font-size: 17px;
+      }
+
+      .attrib {
+        margin-top: 30px;
+      }
+
+      .attrib p{
+        margin-bottom: 0;
+      }
+
+
+    </style>
+  </head>
+  <body>
+
+    <div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 intro">
+          <p class="lead">Graduating from high school isn't an easy job, 
+            especially in New York City. It looks like graduation rates 
+            are different in each NYC borough and the rate also changes 
+            by year. This is a quick look at the New York City borough 
+            high school graduation rates in 2012 and 2013.
+          </p>
+        </div>
+      </div>
+
+      <div class="row row-centered">
+        <div class="btn-group chart-control" role="group">
+          <button type="button" class="btn btn-default red">Decreased</button>
+          <button type="button" class="btn btn-default black">No Change</button>
+          <button type="button" class="btn btn-default green">Increased</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 chart-container"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-7" id="map1-text">
+          <div class="col-xs-4" id="map1"></div>
+          <h2 id="map1-text-header">Queens</h2>
+          <p class="larger">Wikipedia says the following about education in Queens: 
+            Elementary and secondary school education in Queens is provided by 
+            a vast number of public and private institutions. Public schools in 
+            the borough are managed by the New York City Department of Education, 
+            the largest public school system in the United States. Most private schools 
+            are affiliated to or identify themselves with the Roman Catholic or Jewish 
+            religious communities. Townsend Harris High School is a Queens public magnet 
+            high school for the humanities consistently ranked as among the top 100 
+            high schools in the United States.</p>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-5" id="map2-text">
+          <div class="col-xs-4 col-lg-6" id="map2"></div>
+          <h2 id="map2-text-header">Bronx</h2>
+          <p class="larger">Here is some information on Bronx education system from Wikipedia: Education in the Bronx is provided by a large number of public and private institutions, many of which draw students who live beyond the Bronx. The New York City Department of Education manages public noncharter schools in the borough.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" id="map3-text">
+          <h2 id="map3-text-header">Manhattan</h2>
+          <p class="larger">There is a lot of information on education in Manhattan in Wikipedia: Education in Manhattan is provided by a vast number of public and private institutions. Public schools in the borough are operated by the New York City Department of Education, the largest public school system in the United States. Charter schools include Success Academy Harlem 1 through 5, Success Academy Upper West, and Public Prep.</p>
+          <p class="larger">Some of the best-known New York City public high schools, such as Beacon High School, Stuyvesant High School, Fiorello H. LaGuardia High School, High School of Fashion Industries, Eleanor Roosevelt High School, NYC Lab School, Manhattan Center for Science and Mathematics, Hunter College High School and High School for Math, Science and Engineering at City College are located in Manhattan. Bard High School Early College, a hybrid school created by Bard College, serves students from around the city.</p>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="map3"></div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-7" id="map4-text">
+          <div class="col-xs-4" id="map4"></div>
+          <h2 id="map4-text-header">Brooklyn</h2>
+          <p class="larger">Education in Brooklyn is provided by a vast number of public and private institutions. Public schools in the borough are managed by the New York City Department of Education, the largest public school system. Brooklyn Technical High School (commonly called Brooklyn Tech), a New York City public high school, is the largest specialized high school for science, mathematics, and technology in the United States.[85] Brooklyn Tech opened in 1922. Brooklyn Tech is located across the street from Fort Greene Park. This high school was built from 1930 to 1933 at a cost of about $6,000,000 and is 12 stories high. It covers about half of a city block.[86] Brooklyn Tech is noted for its famous alumni[87] (including two Nobel Laureates), its academics, and the large number of graduates attending prestigious universities.</p>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-5" id="map5-text">
+          <div class="col-xs-4 col-lg-6" id="map5"></div>
+          <h2 id="map5-text-header">Staten Island</h2>
+          <p class="larger">Education in Staten Island is provided by a number of public and private institutions. Public schools in the borough are managed by the New York City Department of Education, the largest public school system in the United States. Staten Island is connected to New Jersey via three vehicular bridges and one railroad bridge. The Outerbridge Crossing to Perth Amboy, New Jersey is at the southern end of ...</p>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 attrib">
+          <p>Steps:</p>
+          <ol>
+            <li>Download the two data sets from NYC OpenData.</li>
+            <li>Load the data into database of choice.</li>
+            <li>Run <a href="/assets/high-school-graduation-rate/data_prep.sql" target="_blank">this SQL</a> to get it ready for D3.js.</li>
+            <li>Should be ready to go for <a href="/assets/high-school-graduation-rate/vis.js" target="_blank">D3 code</a>.</li>
+          </ol>
+
+          <p>Data Sources:</p>
+          <ol>
+            <li><a href="https://data.cityofnewyork.us/Education/DOE-High-School-Directory-2014-2015/n3p6-zve2" target="_blank">DOE High School Directory 2014-2015</a></li>
+            <li><a href="https://data.cityofnewyork.us/Education/DOE-High-School-Performance-Directory-2014-2015/xahu-rkwn" target="_blank">DOE High School Performance Directory 2014-2015</a></li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/assets/high-school-graduation-rate/vis.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>
