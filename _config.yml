@@ -19,6 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 domain: aliavni.com
 url: https://aliavni.com
+logo: "/assets/images/ac.jpeg"
 
 title: Ali Cirik
 email: aliavni@gmail.com
@@ -51,8 +52,20 @@ defaults:
       related: true
       toc: true
       toc_sticky: true
+      show_date: true
 
 title_separator: "|"
+
+author:
+  bio: "I am a Data Engineer with many many years of experience"
+  avatar: "/assets/images/ali.jpg"
+  links:
+    - label: "Github"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/aliavni"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/aliavnicirik"
 
 jekyll-archives:
   enabled: all
