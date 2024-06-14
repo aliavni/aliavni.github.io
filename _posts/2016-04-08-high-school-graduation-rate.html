@@ -10,6 +10,12 @@ tags: d3 visualization
 author_profile: false
 ---
 
+Graduating from high school isn't an easy job, 
+especially in New York City. It looks like graduation rates 
+are different in each NYC borough and the rate also changes 
+by year. This is a quick look at the New York City borough 
+high school graduation rates in 2012 and 2013.
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -18,31 +24,11 @@ author_profile: false
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PQ9TKB4C6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-5PQ9TKB4C6');
-    </script>
-
     <style>
-
-      body {
-        margin-top: 20px;
-        margin-bottom: 20px;
-      }
-
       #all-boroughs {
         stroke: white;
         stroke-width: 1px;
         fill: lightgray;
-      }
-
-      p {
-        text-align: justify;
       }
 
       .chart-container {
@@ -61,7 +47,6 @@ author_profile: false
       .x.axis path {
         stroke-width: 1;
       }
-
 
       .axis text {
         font-size: 10px;
@@ -102,44 +87,14 @@ author_profile: false
           text-align:center;
       }
 
-      h1 {
-        text-align: center;
-      }
-
-      h2 {
-        margin-top: 0px;
-      }
-
       .larger {
         font-size: 17px;
       }
-
-      .attrib {
-        margin-top: 30px;
-      }
-
-      .attrib p{
-        margin-bottom: 0;
-      }
-
-
     </style>
   </head>
   <body>
 
     <div>
-
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 intro">
-          <p class="lead">Graduating from high school isn't an easy job, 
-            especially in New York City. It looks like graduation rates 
-            are different in each NYC borough and the rate also changes 
-            by year. This is a quick look at the New York City borough 
-            high school graduation rates in 2012 and 2013.
-          </p>
-        </div>
-      </div>
-
       <div class="row row-centered">
         <div class="btn-group chart-control" role="group">
           <button type="button" class="btn btn-default red">Decreased</button>
@@ -156,8 +111,7 @@ author_profile: false
         <div class="col-xs-12 col-sm-12 col-md-7" id="map1-text">
           <div class="col-xs-4" id="map1"></div>
           <h2 id="map1-text-header">Queens</h2>
-          <p class="larger">Wikipedia says the following about education in Queens: 
-            Elementary and secondary school education in Queens is provided by 
+          <p class="larger">Elementary and secondary school education in Queens is provided by 
             a vast number of public and private institutions. Public schools in 
             the borough are managed by the New York City Department of Education, 
             the largest public school system in the United States. Most private schools 
@@ -179,7 +133,7 @@ author_profile: false
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" id="map3-text">
           <h2 id="map3-text-header">Manhattan</h2>
-          <p class="larger">There is a lot of information on education in Manhattan in Wikipedia: Education in Manhattan is provided by a vast number of public and private institutions. Public schools in the borough are operated by the New York City Department of Education, the largest public school system in the United States. Charter schools include Success Academy Harlem 1 through 5, Success Academy Upper West, and Public Prep.</p>
+          <p class="larger">Education in Manhattan is provided by a vast number of public and private institutions. Public schools in the borough are operated by the New York City Department of Education, the largest public school system in the United States. Charter schools include Success Academy Harlem 1 through 5, Success Academy Upper West, and Public Prep.</p>
           <p class="larger">Some of the best-known New York City public high schools, such as Beacon High School, Stuyvesant High School, Fiorello H. LaGuardia High School, High School of Fashion Industries, Eleanor Roosevelt High School, NYC Lab School, Manhattan Center for Science and Mathematics, Hunter College High School and High School for Math, Science and Engineering at City College are located in Manhattan. Bard High School Early College, a hybrid school created by Bard College, serves students from around the city.</p>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="map3"></div>
@@ -200,10 +154,9 @@ author_profile: false
         </div>
       </div>
 
-
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 attrib">
-          <p>Steps:</p>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h2>Steps</h2>
           <ol>
             <li>Download the two data sets from NYC OpenData.</li>
             <li>Load the data into database of choice.</li>
@@ -211,7 +164,7 @@ author_profile: false
             <li>Should be ready to go for <a href="/assets/high-school-graduation-rate/vis.js" target="_blank">D3 code</a>.</li>
           </ol>
 
-          <p>Data Sources:</p>
+          <h2>Data Sources</h2>
           <ol>
             <li><a href="https://data.cityofnewyork.us/Education/DOE-High-School-Directory-2014-2015/n3p6-zve2" target="_blank">DOE High School Directory 2014-2015</a></li>
             <li><a href="https://data.cityofnewyork.us/Education/DOE-High-School-Performance-Directory-2014-2015/xahu-rkwn" target="_blank">DOE High School Performance Directory 2014-2015</a></li>
@@ -220,7 +173,6 @@ author_profile: false
       </div>
 
     </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
