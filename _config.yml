@@ -55,6 +55,7 @@ defaults:
       show_date: true
       header:
         overlay_image: /assets/images/ac.jpeg
+        teaser: /assets/images/ac.jpeg
         overlay_filter: 0.5
 
 title_separator: "|"
