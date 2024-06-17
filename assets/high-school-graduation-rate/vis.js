@@ -337,5 +337,3 @@ d3.csv("/assets/high-school-graduation-rate/vis.csv", type, function(error, data
   });
 
 });
-
-

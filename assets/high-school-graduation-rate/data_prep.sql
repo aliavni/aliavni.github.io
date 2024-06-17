@@ -5,7 +5,7 @@
 --------------------------------------------------
 
 create table vis_data as
-select 
+select
   dbn,
   boro,
   trim(split_part(lat_lon, ',', 1)) as lat,
@@ -20,13 +20,13 @@ select
   CASE WHEN student_satisfaction_2012 = 'N/A' THEN NULL ELSE rtrim(student_satisfaction_2012, '%')::FLOAT / 100 END as student_satisfaction_2012
 from (
   select d.dbn, boro, trim(split_part(location_1, E'\n', 3), '()') lat_lon,
-    ontrack_year1_2013, 
-    graduation_rate_2013, 
-    college_career_rate_2013, 
-    student_satisfaction_2013, 
-    ontrack_year1_2012, 
-    graduation_rate_2012, 
-    college_career_rate_2012, 
+    ontrack_year1_2013,
+    graduation_rate_2013,
+    college_career_rate_2013,
+    student_satisfaction_2013,
+    ontrack_year1_2012,
+    graduation_rate_2012,
+    college_career_rate_2012,
     student_satisfaction_2012
   from hs_directory d
   join hs_performance p using(dbn)
