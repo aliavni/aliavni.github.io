@@ -99,3 +99,11 @@ exclude:
   - Gemfile.lock
   - README.md
   - vendor
+
+repository: "aliavni/aliavni.github.io"
+comments:
+  provider: "utterances"
+  utterances:
+    theme: "github-light" # "github-dark"
+    issue_term: "pathname"
+    label: "comment" # Optional - must be existing label.
