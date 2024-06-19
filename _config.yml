@@ -62,6 +62,7 @@ defaults:
 title_separator: "|"
 
 author:
+  name: "Ali Cirik"
   bio: "I am a Data Engineer with many many years of experience"
   avatar: "/assets/images/ali.jpg"
   links:
