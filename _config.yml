@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 domain: aliavni.com
-url: https://aliavni.com
+url: https://www.aliavni.com
 logo: "/assets/images/ac.jpeg"
 
 title: Ali Cirik
