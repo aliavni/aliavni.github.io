@@ -79,7 +79,8 @@
 {% endif %}
 
 {% if page.date %}
-  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta name="published_time" property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta name="publish_date" property="article:publish_date" content="{{ page.date | date_to_xmlschema }}">
 {% endif %}
 
 {% if og_type == "article" and page.last_modified_at %}
